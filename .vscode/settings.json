@@ -54,6 +54,7 @@
 		"thread": "cpp",
 		"cinttypes": "cpp",
 		"typeinfo": "cpp",
-		"semaphore": "cpp"
+		"semaphore": "cpp",
+		"iomanip": "cpp"
 	}
 }

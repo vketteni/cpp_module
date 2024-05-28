@@ -7,15 +7,15 @@
 class Contact
 {
   private:
-	std::string first_name;
-	std::string last_name;
+	std::string firstName;
+	std::string lastName;
 	std::string nickname;
-	std::string dark_secret;
-	int phone_number;
+	std::string darkSecret;
+	int 		phoneNumber;
+	bool		valid;
 
   public:
-	Contact(std::string fn, std::string ln, std::string nn, std::string ds,
-		int p);
+	Contact();
 	Contact(const Contact& other);
 	Contact& operator=(const Contact& other);
 	~Contact() {};
@@ -30,7 +30,8 @@ class Contact
 	void setDarkSecret(std::string n);
 	int getPhoneNumber() const;
 	void setPhoneNumber(int pn);
-	void	displayContact() const;
+	void setValid(bool v);
+	bool isValid();
 };
 
 #endif

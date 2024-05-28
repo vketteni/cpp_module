@@ -1,7 +1,7 @@
-NAME=phonebook
+NAME=zombieHorde
 CC=g++
 
-SRCS=main.cpp PhoneBook.cpp Contact.cpp utils.cpp
+SRCS=main.cpp newZombie.cpp randomChump.cpp Zombie.cpp zombieHorde.cpp
 OBJ_DIR=obj/
 OBJS=$(SRCS:%.cpp=$(OBJ_DIR)%.o)
 

@@ -1,40 +1,48 @@
 #include "Contact.hpp"
 
-Contact::Contact(std::string fn, std::string ln, std::string nn, std::string ds,
-	int p) : first_name(fn), last_name(ln), nickname(nn), dark_secret(ds),
-		phone_number(p) {}
+// Default constructor
+Contact::Contact() : firstName(""), lastName(""), nickname(""), darkSecret(""),
+	phoneNumber(0), valid(false)
+{
+}
 
-Contact::Contact(const Contact &other) : first_name(other.first_name), last_name(other.last_name), nickname(other.nickname), dark_secret(other.dark_secret),
-		phone_number(other.phone_number) {}
+// Copy constructor
+Contact::Contact(const Contact &other) : firstName(other.firstName),
+	lastName(other.lastName), nickname(other.nickname),
+	darkSecret(other.darkSecret), phoneNumber(other.phoneNumber), valid(true)
+{
+}
 
+// Assignment operator constructor
 Contact &Contact::operator=(const Contact &other)
 {
-	if (this != &other)~
+	if (this != &other)
 	{
-		first_name = other.first_name;
-		last_name = other.last_name;
+		firstName = other.firstName;
+		lastName = other.lastName;
 		nickname = other.nickname;
-		dark_secret = other.dark_secret;
-		phone_number = other.phone_number;
+		darkSecret = other.darkSecret;
+		phoneNumber = other.phoneNumber;
+		valid = true;
 	}
 	return (*this);
 }
 
 std::string Contact::getFirstName() const
 {
-	return (std::string());
+	return (firstName);
 }
 void Contact::setFirstName(std::string n)
 {
-	first_name = n;
+	firstName = n;
 }
 std::string Contact::getLastName() const
 {
-	return (last_name);
+	return (lastName);
 }
 void Contact::setLastName(std::string n)
 {
-	last_name = n;
+	lastName = n;
 }
 std::string Contact::getNickname() const
 {
@@ -46,21 +54,27 @@ void Contact::setNickname(std::string n)
 }
 std::string Contact::getDarkSecret() const
 {
-	return (dark_secret);
+	return (darkSecret);
 }
 void Contact::setDarkSecret(std::string n)
 {
-	dark_secret = n;
+	darkSecret = n;
 }
 int Contact::getPhoneNumber() const
 {
-	return (phone_number);
+	return (phoneNumber);
 }
 void Contact::setPhoneNumber(int pn)
 {
-	phone_number = pn;
+	phoneNumber = pn;
 }
-void Contact::displayContact() const
+
+void Contact::setValid(bool v)
 {
-	std::cout << "TODO" << std::endl;
+	valid = v;
+}
+
+bool Contact::isValid()
+{
+	return (this->valid);
 }
