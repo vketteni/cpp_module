@@ -1,7 +1,7 @@
-NAME=brain
+NAME=club
 CC=g++
 
-SRCS=main.cpp
+SRCS=main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 OBJ_DIR=obj/
 OBJS=$(SRCS:%.cpp=$(OBJ_DIR)%.o)
 
