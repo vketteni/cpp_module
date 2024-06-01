@@ -11,12 +11,12 @@ private:
 public:
     Weapon();
     Weapon(std::string type);
-    Weapon(Weapon& other);
-    Weapon& operator=(Weapon& other);
+    Weapon(const Weapon& other);
+    Weapon& operator=(const Weapon& other);
     ~Weapon();
 
     std::string getType() const;
-    void setType(const std::string& type);
+    void setType(const std::string type);
 };
 
 #endif // WEAPON_HPP

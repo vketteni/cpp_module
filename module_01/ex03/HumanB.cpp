@@ -1,26 +1,10 @@
 #include "HumanB.hpp"
 
-HumanB::HumanB() : name("default"), weapon("a woobly noodle")
-{
-	// TODO: Initialize attributes with the provided string
-    std::cout << "Parameterized constructor called" << std::endl;
-}
+HumanB::HumanB() : name("default"), weapon(0) {}
 
-HumanB::HumanB(std::string name)
-{
-    Weapon weapon;
-    weapon = Weapon("a woobly noodle");
-    this->name = name;
-    this->weapon = weapon;
-	// TODO: Initialize attributes with the provided string
-    std::cout << "Parameterized constructor called" << std::endl;
-}
+HumanB::HumanB(const std::string& name) : name(name), weapon(0) {}
 
-HumanB::HumanB(const HumanB& other) {
-    *this = other;
-    // TODO: Copy each attribute from the 'other' object
-    std::cout << "Copy constructor called" << std::endl;
-}
+HumanB::HumanB(const HumanB& other) : name(other.name), weapon(other.weapon) {}
 
 HumanB& HumanB::operator=(const HumanB& other) {
     if (this == &other) {
@@ -29,21 +13,22 @@ HumanB& HumanB::operator=(const HumanB& other) {
 
     // TODO: Free existing resources and copy each attribute from the 'other' object
 
-    std::cout << "Copy assignment operator called" << std::endl;
+    // std::cout << "Copy assignment operator called" << std::endl;
     return *this;
 }
 
 HumanB::~HumanB() {
     // TODO: Clean up any allocated resources
-    std::cout << "Destructor called" << std::endl;
+    // delete weapon;
+    // std::cout << "Destructor called" << std::endl;
 }
 
 Weapon HumanB::getWeapon() {
-    return weapon;
+    return *weapon;
 }
 
 void HumanB::setWeapon(Weapon& weapon) {
-    this->weapon = weapon;
+    this->weapon = &weapon;
 }
 
 std::string HumanB::getName() const {
