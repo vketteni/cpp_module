@@ -10,7 +10,7 @@ void    capitalize(std::string& str)
     i = 0;
     while (i < str.size())
     {
-        str[i] = toupper(static_cast<unsigned char>(str[i]));
+        str[i] = std::toupper(static_cast<unsigned char>(str[i]));
         i++;
     }
 }

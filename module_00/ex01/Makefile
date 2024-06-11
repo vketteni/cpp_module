@@ -1,5 +1,5 @@
 NAME=phonebook
-CC=g++
+CC=c++
 
 SRCS=main.cpp PhoneBook.cpp Contact.cpp utils.cpp
 OBJ_DIR=obj/

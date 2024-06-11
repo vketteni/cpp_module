@@ -1,5 +1,5 @@
 NAME=club
-CC=g++
+CC=c++
 
 SRCS=main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
 OBJ_DIR=obj/

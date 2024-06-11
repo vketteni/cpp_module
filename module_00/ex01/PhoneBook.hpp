@@ -11,20 +11,25 @@ class PhoneBook
 {
 	public:
 		enum Option {
-			ADD = 1,
-			SEARCH,
-			EXIT
+							ADD = 1,
+							SEARCH,
+							EXIT
 		};
 	private:
-		Contact contacts[PHONEBOOK_SIZE];
-		int		num_contacts;
+		Contact 			contacts[PHONEBOOK_SIZE];
+		int					num_contacts;
+		void				add(Contact& contact);
+		std::string			getInput(std::string option);
 	public:
 		PhoneBook();
-		void	search();
-		void	add();
+		~PhoneBook();
+		void				search();
+		void				add();
 };
 
-std::string truncateString(const std::string& str, std::size_t maxLength);
-void	clear_screen();
+bool						isAlphaNumString(std::string input);
+bool						isDigitString(std::string input);
+std::string 				truncateString(const std::string& str, std::size_t maxLength);
+void						clear_screen();
 
 #endif

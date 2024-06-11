@@ -7,11 +7,11 @@
 class Contact
 {
   private:
-	std::string firstName;
-	std::string lastName;
-	std::string nickname;
-	std::string darkSecret;
-	int 		phoneNumber;
+	std::string 	firstName;
+	std::string 	lastName;
+	std::string 	nickname;
+	std::string 	darkSecret;
+	std::string 	phoneNumber;
 	bool		valid;
 
   public:
@@ -28,8 +28,8 @@ class Contact
 	void setNickname(std::string n);
 	std::string getDarkSecret() const;
 	void setDarkSecret(std::string n);
-	int getPhoneNumber() const;
-	void setPhoneNumber(int pn);
+	std::string getPhoneNumber() const;
+	void setPhoneNumber(std::string pn);
 	void setValid(bool v);
 	bool isValid();
 };

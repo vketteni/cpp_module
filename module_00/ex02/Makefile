@@ -1,5 +1,5 @@
 NAME=megaphone
-CC=g++
+CC=c++
 
 SRCS=main.cpp
 OBJ_DIR=obj/

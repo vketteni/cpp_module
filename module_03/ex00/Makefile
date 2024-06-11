@@ -1,7 +1,7 @@
-NAME=zombieHorde
+NAME=fixed
 CC=c++
 
-SRCS=main.cpp newZombie.cpp randomChump.cpp Zombie.cpp zombieHorde.cpp
+SRCS=main.cpp ClapTrap.cpp
 OBJ_DIR=obj/
 OBJS=$(SRCS:%.cpp=$(OBJ_DIR)%.o)
 

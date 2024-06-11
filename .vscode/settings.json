@@ -55,6 +55,12 @@
 		"cinttypes": "cpp",
 		"typeinfo": "cpp",
 		"semaphore": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"cstring": "cpp",
+		"weapon.hpp": "c",
+		"humana.hpp": "c",
+		"humanb.hpp": "c",
+		"fstream": "cpp",
+		"map": "cpp"
 	}
 }

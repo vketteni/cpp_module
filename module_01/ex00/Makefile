@@ -1,5 +1,5 @@
 NAME=zombie
-CC=g++
+CC=c++
 
 SRCS=main.cpp newZombie.cpp randomChump.cpp Zombie.cpp
 OBJ_DIR=obj/

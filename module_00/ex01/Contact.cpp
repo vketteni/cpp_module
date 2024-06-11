@@ -2,7 +2,7 @@
 
 // Default constructor
 Contact::Contact() : firstName(""), lastName(""), nickname(""), darkSecret(""),
-	phoneNumber(0), valid(false)
+	phoneNumber(""), valid(false)
 {
 }
 
@@ -60,11 +60,11 @@ void Contact::setDarkSecret(std::string n)
 {
 	darkSecret = n;
 }
-int Contact::getPhoneNumber() const
+std::string Contact::getPhoneNumber() const
 {
 	return (phoneNumber);
 }
-void Contact::setPhoneNumber(int pn)
+void Contact::setPhoneNumber(std::string pn)
 {
 	phoneNumber = pn;
 }
