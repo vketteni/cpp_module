@@ -62,5 +62,6 @@
 		"humanb.hpp": "c",
 		"fstream": "cpp",
 		"map": "cpp"
-	}
+	},
+	"C_Cpp.errorSquiggles": "enabled"
 }

@@ -1,7 +1,7 @@
-NAME=fixed
+NAME=scavtrap
 CC=c++
 
-SRCS=main.cpp Fixed.cpp
+SRCS=main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJ_DIR=obj/
 OBJS=$(SRCS:%.cpp=$(OBJ_DIR)%.o)
 

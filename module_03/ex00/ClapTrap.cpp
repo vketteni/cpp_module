@@ -5,12 +5,12 @@ ClapTrap::ClapTrap() : _name("default"), _hitPoints(10), _energyPoints(10), _att
 }
 
 ClapTrap::ClapTrap( const std::string& name) : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
-    // TODO: Initialize attributes with the provided string
+    //	Initialize attributes with the provided string
     std::cout << "Parameterized constructor called" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) : _name(other._name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
-    // TODO: Copy each attribute from the 'other' object
+    //	Copy each attribute from the 'other' object
     std::cout << "Copy constructor called" << std::endl;
 }
 
@@ -23,33 +23,53 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     _hitPoints = other._hitPoints;
     _energyPoints = other._energyPoints;
     _attackDamage = other._attackDamage;
-    // TODO: Free existing resources and copy each attribute from the 'other' object
 
     std::cout << "Copy assignment operator called" << std::endl;
     return *this;
 }
 
 ClapTrap::~ClapTrap() {
-    // TODO: Clean up any allocated resources
     std::cout << "Destructor called" << std::endl;
 }
 
 void ClapTrap::attack(const std::string& target) {
-    // TODO: Implement attack
-    
-    std::cout << _name << " attacks " << target << " causing " << _attackDamage << " points of damage!" << std::endl;
-}
+	if (_energyPoints > 0 && _hitPoints > 0)
+	{
+		_energyPoints--;
+		std::cout << _name << " attacks " << target << " causing " << _attackDamage << " points of damage!" << std::endl;
+	}
+	else if (_hitPoints <= 0)
+	{
+		std::cout << "Arggh ohhwuhh.." << std::endl;
+	}
+	else
+	{
+		std::cout << "Phew I'm out of energy points.." << std::endl;
+	}
+	}
 
 void ClapTrap::takeDamage(unsigned int amount) {
-    // TODO: Implement attack
-
-    _hitPoints -= amount;
+	if (amount > _hitPoints)
+		_hitPoints = 0;
+	else
+		_hitPoints -= amount;
     std::cout << _name << " takes " << amount << " points of damage!" << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
-    // TODO: Implement attack
-    _hitPoints += amount;
+	if (_energyPoints > 0 && _hitPoints > 0)
+	{
+		_hitPoints += amount;
+		_energyPoints--;
+	}
+	else if (_hitPoints <= 0)
+	{
+		std::cout << "Arggh ohhwuhh.." << std::endl;
+	}
+	else
+	{
+		std::cout << "Phew I'm out of energy points.." << std::endl;
+	}
     std::cout << _name << " repairs itself by " << amount << " points of hit points!" << std::endl;
 }
 

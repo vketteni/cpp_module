@@ -1,7 +1,7 @@
-NAME=fixed
+NAME=fragtrap
 CC=c++
 
-SRCS=main.cpp Fixed.cpp
+SRCS=main.cpp FragTrap.cpp ClapTrap.cpp
 OBJ_DIR=obj/
 OBJS=$(SRCS:%.cpp=$(OBJ_DIR)%.o)
 

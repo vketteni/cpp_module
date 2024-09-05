@@ -1,4 +1,4 @@
-NAME=fixed
+NAME=claptrap
 CC=c++
 
 SRCS=main.cpp Fixed.cpp
