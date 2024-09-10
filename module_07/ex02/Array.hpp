@@ -1,6 +1,7 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+# include <iostream>
 # include "Debug.hpp"
 
 template <typename T>
@@ -42,7 +43,7 @@ inline Array<T>::Array(const Array<T> &other)
 {
 	_size = other._size;
 	_data = new T[_size];
-	for (int i = 0; i < _size; ++i)
+	for (unsigned int i = 0; i < _size; ++i)
 		_data[i] = other._data[i];
 }
 
@@ -81,5 +82,12 @@ inline unsigned int Array<T>::size(void)
 template <typename T>
 inline Array<T>::~Array()
 {
-	delete _data;
+	delete[] _data;
 }
+
+/* template <typename T>
+inline std::ostream &operator<<(std::ostream &out, const T &)
+{
+	out << Array[]
+}
+ */
