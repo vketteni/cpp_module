@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <cmath>
 
-std::vector<std::vector<std::string> > BitcoinExchange::readDb(const std::string &db,
+std::deque<std::deque<std::string> > BitcoinExchange::readDb(const std::string &db,
 	const char sep)
 {
 	size_t	pos;
@@ -11,13 +11,13 @@ std::vector<std::vector<std::string> > BitcoinExchange::readDb(const std::string
 	if (!file.is_open())
 	{
 		std::cerr << "Error: couldn't open internal database.\n";
-		return std::vector<std::vector<std::string> >();
+		return std::deque<std::deque<std::string> >();
 	}
-	std::vector<std::vector<std::string> > dbParsed;
+	std::deque<std::deque<std::string> > dbParsed;
 	std::string line;
 	while (std::getline(file, line))
 	{
-		std::vector<std::string> row;
+		std::deque<std::string> row;
 		pos = 0;
 		while ((pos = line.find(sep)) != std::string::npos)
 		{
@@ -84,7 +84,7 @@ BitcoinExchange::BitcoinExchange(const std::string &accountDb)
 		return ;
 	} */
 	_accountData = readDb(accountDb, '|');
-	for (std::vector<std::vector<std::string> >::const_iterator it = _accountData.begin(); it != _accountData.end(); ++it)
+	for (std::deque<std::deque<std::string> >::const_iterator it = _accountData.begin(); it != _accountData.end(); ++it)
 	{
 		std::cout << (*it).at(0) << " " << (*it).at(1) << std::endl;
 	}
@@ -97,7 +97,7 @@ BitcoinExchange::BitcoinExchange(const std::string &accountDb)
 
 void BitcoinExchange::printHistory(void)
 {
-	for (std::vector<std::vector<std::string> >::const_iterator accountRow = _accountData.begin(); accountRow != _accountData.end(); ++accountRow)
+	for (std::deque<std::deque<std::string> >::const_iterator accountRow = _accountData.begin(); accountRow != _accountData.end(); ++accountRow)
 	{
 		const std::string & dateAccountRow = (*accountRow).at(0);
 		const std::string & valueAccountRow = (*accountRow).at(1);
@@ -105,7 +105,7 @@ void BitcoinExchange::printHistory(void)
 			continue;
 
 		Date dateAccount(dateAccountRow);
-		for (std::vector<std::vector<std::string> >::const_iterator exchangeRateRow = _exchangeRates.begin(); exchangeRateRow != _exchangeRates.end(); ++exchangeRateRow)
+		for (std::deque<std::deque<std::string> >::const_iterator exchangeRateRow = _exchangeRates.begin(); exchangeRateRow != _exchangeRates.end(); ++exchangeRateRow)
 		{
 			const std::string & dateExchangeRateStr = (*exchangeRateRow).at(0);
 			const std::string & valueExchangeRateStr = (*exchangeRateRow).at(1);

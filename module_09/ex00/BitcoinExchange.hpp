@@ -3,6 +3,7 @@
 
 # include <string>
 # include <vector>
+# include <deque>
 # include <algorithm>
 # include <iostream>
 # include <fstream>
@@ -27,11 +28,10 @@ class BitcoinExchange
 		BitcoinExchange & operator=(const BitcoinExchange & other);
 		BitcoinExchange();
 
-		std::vector<std::vector<std::string> >	_accountData;
-		std::vector<std::vector<std::string> >	_exchangeRates;
+		std::deque< std::deque<std::string> >	_accountData;
+		std::deque<std::deque<std::string> >	_exchangeRates;
 
-		std::vector<std::vector<std::string> >	readDb(const std::string & db, const char sep);
-		bool isValidFormat(const std::vector<std::vector<std::string> > & parsedDb) const;
+		std::deque<std::deque<std::string> >	readDb(const std::string & db, const char sep);
 		bool isValidDate(const std::string & date) const;
 		bool isValidValue(const std::string & value) const;
 
