@@ -121,28 +121,6 @@ void BitcoinExchange::printHistory(void)
 				std::cout << accountDateRaw << " => " << accountValue << " * " << rateValue << " = " << accountValue * rateValue << std::endl;
 				break;
 			}
-
-/* 			const std::string & rateDateRaw = (*rateRow).at(0);
-			const std::string & rateValueRaw = (*rateRow).at(1);
-			Date dateExchangeRate((*rateRow).at(0));
-			if (!validDateFormat(rateDateRaw) || !isValidValue(rateValueRaw))
-				continue ;	
-			if (dateExchangeRate < date)
-				continue ;
-			else if (dateExchangeRate == date)
-			{
-				float accountValue = strtof(accountValueRaw.c_str(), NULL);
-				float rateValue = strtof(rateValueRaw.c_str(), NULL);
-			}
-			else if (rateRow != _exchangeRates.begin())
-			{
-				float accountValue = strtof((*(rateRow - 1)).at(0).c_str(), NULL);
-				float rateValue = strtof((*(rateRow - 1)).at(1).c_str(), NULL);
-			}
-			else 
-				continue; */
-
-			// std::cout << accountDateRaw << " => " << accountValueRaw << " = " << accountValue * rateValue << std::endl;
 		}
 	}
 }
