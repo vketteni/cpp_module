@@ -32,10 +32,23 @@ class BitcoinExchange
 		std::deque<std::deque<std::string> >	_exchangeRates;
 
 		std::deque<std::deque<std::string> >	readDb(const std::string & db, const char sep);
-		bool validDateFormat(const std::string & date) const;
-		bool isValidValue(const std::string & value) const;
+		static bool validDateFormat(const std::string & date);
+		static bool isValidValue(const std::string & value);
 
-		struct Date;
+		struct Date {
+			int year;
+			int month;
+			int day;
+			bool validDate;
+
+			Date(const std::string& dateStr); 
+
+			bool operator<(const Date& other) const; 
+			bool operator==(const Date& other) const; 
+			bool operator>(const Date& other) const; 
+			bool operator>=(const Date& other) const; 
+			bool operator<=(const Date& other) const; 
+		};
 
 
 };

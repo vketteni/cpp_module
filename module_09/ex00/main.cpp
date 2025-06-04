@@ -20,24 +20,6 @@ bool	hasFileExtension(const std::string & filename, const std::string & extensio
 	return fileExtension == extension;
 }
 
-bool checkLineFormat(const std::string & line)
-{
-	(void)line;
-	return true;
-}
-
-bool checkDateFormat(const std::string & date)
-{
-	(void)date;
-	return true;
-}
-
-bool checkValueFormate(const std::string & value)
-{
-	(void)value;
-	return true;
-}
-
 int	main(int argc, char **argv)
 {
 	if (argc < 2)
