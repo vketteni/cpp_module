@@ -21,97 +21,77 @@ RPN::~RPN()
 
 bool RPN::isOperant(const std::string & input)
 {
-	for (std::string::const_iterator it = input.begin(); it != input.end(); ++it)
-	{
-		if (!std::isdigit(*it))
-			return false;
-	}
-	return true;
+	if (input.length() != 1)
+		return false;
+	return (input[0] >= '0' && input[0] <= '9');
 }
 
 bool RPN::isOperation(const std::string & input)
 {
-	return std::strchr("+-*/", *(input.c_str()));
+	return (input.length() == 1 && std::strchr("+-*/", input[0]) != NULL);
 }
 
 void RPN::compute(std::string calculation)
 {
-    std::istringstream iss(calculation);
-    std::string token;
-	std::stack<std::string> temp;
-	std::stack<std::string> tempOperants;
+	std::istringstream iss(calculation);
+	std::string token;
+	std::stack<double> operants;
 
-    while (iss >> token)
-		temp.push(token);
-    std::stack<std::string> RPNInputs;
-    while (!temp.empty())
+	while (iss >> token)
 	{
-        RPNInputs.push(temp.top());
-        temp.pop();
-    }
-
-    std::stack<std::string> operants;
-	std::string operation = "";
-	while (!RPNInputs.empty())
-	{
-		std::string input = RPNInputs.top();
-		if (isOperation(input))//(std::atoi(input.c_str()) <= 10))
+		if (isOperant(token))
+		{
+			double num = std::atoi(token.c_str());
+			operants.push(num);
+		}
+		else if (isOperation(token))
 		{
 			if (operants.size() < 2)
 			{
-				std::cerr << "Error: Operation queued but not enough operants in stack.\n";
-				return ;
+				std::cerr << "Error" << std::endl;
+				return;
 			}
-			//
-			operation = input;
-			debug(operants.top());
-			double operant_a = std::atoi(operants.top().c_str());
+
+			double operant_a = operants.top();
 			operants.pop();
-			debug(operants.top());
-			double operant_b = std::atoi(operants.top().c_str());
+			double operant_b = operants.top();
 			operants.pop();
 
-			double calculation = 0;
-			debug(*(operation.c_str()));
-			switch (*(operation.c_str()))
+			double result = 0;
+			switch (token[0])
 			{
 				case '+':
-					calculation = operant_b + operant_a;
+					result = operant_b + operant_a;
 					break;
 				case '-':
-					calculation = operant_b - operant_a;
+					result = operant_b - operant_a;
 					break;
 				case '*':
-					calculation = operant_b * operant_a;
+					result = operant_b * operant_a;
 					break;
 				case '/':
-					calculation = operant_b / operant_a;
-					break;
-				default:
+					if (operant_a == 0)
+					{
+						std::cerr << "Error" << std::endl;
+						return;
+					}
+					result = operant_b / operant_a;
 					break;
 			}
-			if (calculation < INT_MIN || calculation > INT_MAX)
-			{
-				std::cerr << "Error: Result of operation out of integer bounds: " << std::endl;
-				return ;
-			}
-
-			std::ostringstream oss;
-			oss << calculation;
-			std::string nextOperant = oss.str();
-			operants.push(nextOperant);
-
-			// 
+			operants.push(result);
 		}
-		else if (isOperant(input))
-			operants.push(input);
 		else
 		{
-			debug(input);
-			std::cerr << "Error\n";
-			return ;
+			std::cerr << "Error" << std::endl;
+			return;
 		}
-		RPNInputs.pop();
 	}
+
+	if (operants.size() != 1)
+	{
+		std::cerr << "Error" << std::endl;
+		return;
+	}
+
 	std::cout << operants.top() << std::endl;
 }
