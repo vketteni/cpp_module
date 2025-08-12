@@ -5,16 +5,26 @@ static void intializeContainers(int argc, char **argv, std::vector<int> & v, std
 	for (int i = 1; i < argc; ++i)
 	{
 		const std::string s(argv[i]);
+		if (s.empty() || (s[0] == '-' && s.length() > 1))
+		{
+			std::cerr << "Error\n";
+			exit(1);
+		}
 		for (std::string::const_iterator it = s.begin(); it != s.end(); ++it)
 		{
 			if (!std::isdigit(*it))
 			{
-				std::cout << "Error\n";
+				std::cerr << "Error\n";
 				exit(1);
 			}
 		}
 		int num;
-		std::istringstream(s) >> num;
+		std::istringstream iss(s);
+		if (!(iss >> num) || !iss.eof())
+		{
+			std::cerr << "Error\n";
+			exit(1);
+		}
 		v[i - 1] = num;
 		l.push_back(num);
 	}
@@ -32,26 +42,21 @@ int identify(const std::list<T>&)
     return LIST_TYPE;
 }
 
-static void printBeforeAfter(int argc, char **argv)
+static void printBeforeAfter(int argc, char **argv, std::vector<int> & sortedV)
 {
-	std::vector<int> v(argc - 1);
-	std::list<int> l;
-
-	intializeContainers(argc, argv, v, l);
 	std::cout << "Before: ";
-	for (int i = 0; i < argc - 1; ++i)
+	for (int i = 1; i < argc; ++i)
 	{
-		std::cout << v.at(i);
+		std::cout << argv[i];
 		if (i < argc - 1) 
 			std::cout << " ";
 	}
 	std::cout << std::endl;
-	std::sort(v.begin(), v.end());
 	std::cout << "After: ";
-	for (int i = 0; i < argc - 1; ++i)
+	for (size_t i = 0; i < sortedV.size(); ++i)
 	{
-		std::cout << v.at(i);
-		if (i < argc - 1) 
+		std::cout << sortedV[i];
+		if (i < sortedV.size() - 1) 
 			std::cout << " ";
 	}
 	std::cout << std::endl;
@@ -104,20 +109,28 @@ static bool isSorted(T & container)
 
 int main(int argc, char **argv)
 {
+	if (argc < 2)
+	{
+		std::cerr << "Error\n";
+		return 1;
+	}
+	
 	std::vector<int> v(argc - 1);
 	std::list<int> l;
 
 	intializeContainers(argc, argv, v, l);
-	printBeforeAfter(argc, argv);
-	(void)printBeforeAfter;
+	
 	timespec vStart, vEnd, lStart, lEnd;
 	run(v, vStart, vEnd);
 	run(l, lStart, lEnd);
+	
+	printBeforeAfter(argc, argv, v);
 	printTime(v, vStart, vEnd);
 	printTime(l, lStart, lEnd);
+	
 	header("isSorted ? 1 == true");
 	debug(isSorted(v));
 	debug(isSorted(l));
-	header("Vector")
+	// header("Vector")
 	// printContainer(v);
 }
