@@ -88,32 +88,80 @@ void BitcoinExchange::printHistory(void)
 	std::deque<std::deque<std::string> >::const_iterator accountRow = _accountData.begin();
 	for (; accountRow != _accountData.end(); ++accountRow)
 	{
+		if (accountRow->size() != 2)
+		{
+			std::cerr << "Error: bad input => " << (accountRow->size() > 0 ? accountRow->at(0) : "") << std::endl;
+			continue;
+		}
+
 		const std::string & accountDateRaw = (*accountRow).at(0);
 		const std::string & accountValueRaw = (*accountRow).at(1);
-		if (!validDateFormat(accountDateRaw) || !isValidValue(accountValueRaw))
+		
+		if (!validDateFormat(accountDateRaw))
+		{
+			std::cerr << "Error: bad input => " << accountDateRaw << std::endl;
 			continue;
+		}
+		
+		if (!isValidValue(accountValueRaw))
+		{
+			char *endPtr = NULL;
+			errno = 0;
+			float value = strtof(accountValueRaw.c_str(), &endPtr);
+			
+			if (endPtr == accountValueRaw.c_str() || *endPtr != '\0')
+				std::cerr << "Error: bad input => " << accountValueRaw << std::endl;
+			else if (value < 0)
+				std::cerr << "Error: not a positive number." << std::endl;
+			else if (value > 1000)
+				std::cerr << "Error: too large a number." << std::endl;
+			else
+				std::cerr << "Error: bad input => " << accountValueRaw << std::endl;
+			continue;
+		}
+		
 		Date accountDate(accountDateRaw);
+		if (!accountDate.validDate)
+		{
+			std::cerr << "Error: bad input => " << accountDateRaw << std::endl;
+			continue;
+		}
+		
+		float accountValue = strtof(accountValueRaw.c_str(), NULL);
+		float rateValue = 0.0f;
+		bool foundRate = false;
+		
 		std::deque<std::deque<std::string> >::const_iterator rateRow = _exchangeRates.begin();
 		for (; rateRow != _exchangeRates.end(); ++rateRow)
 		{
 			const std::string & rateDateRaw = (*rateRow).at(0);
 			const std::string & rateValueRaw = (*rateRow).at(1);
 			Date dateExchangeRate(rateDateRaw);
-			if (!validDateFormat(rateDateRaw) || !isValidValue(rateValueRaw))
-				continue ;	
-			float accountValue = strtof(accountValueRaw.c_str(), NULL);
+			
 			if (dateExchangeRate == accountDate)
 			{
-				float rateValue = strtof(rateValueRaw.c_str(), NULL);
-				std::cout << accountDateRaw << " => " << accountValue << " * " << rateValue << " = " << accountValue * rateValue << std::endl;
+				rateValue = strtof(rateValueRaw.c_str(), NULL);
+				foundRate = true;
 				break;
 			}
 			else if (dateExchangeRate > accountDate && rateRow != _exchangeRates.begin())
 			{
-				float rateValue = strtof((*(rateRow - 1)).at(1).c_str(), NULL);
-				std::cout << accountDateRaw << " => " << accountValue << " * " << rateValue << " = " << accountValue * rateValue << std::endl;
+				rateValue = strtof((*(rateRow - 1)).at(1).c_str(), NULL);
+				foundRate = true;
 				break;
 			}
+		}
+		
+		if (!foundRate && !_exchangeRates.empty())
+		{
+			std::deque<std::deque<std::string> >::const_iterator lastRow = _exchangeRates.end() - 1;
+			rateValue = strtof(lastRow->at(1).c_str(), NULL);
+			foundRate = true;
+		}
+		
+		if (foundRate)
+		{
+			std::cout << accountDateRaw << " => " << accountValue << " = " << accountValue * rateValue << std::endl;
 		}
 	}
 }
@@ -136,9 +184,9 @@ BitcoinExchange::Date::Date(const std::string& dateStr)
 
 	int daysInMonth;
 	if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)))
-		daysInMonth = 28;
-	else if (month == 2)
 		daysInMonth = 29;
+	else if (month == 2)
+		daysInMonth = 28;
 	else if (month == 4 || month == 6 || month == 9 || month == 11)
 		daysInMonth = 30;
 	else 

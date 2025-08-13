@@ -22,9 +22,14 @@ bool	hasFileExtension(const std::string & filename, const std::string & extensio
 
 int	main(int argc, char **argv)
 {
-	if (argc < 2)
+	if (argc != 2)
 	{
-		std::cerr << "Please provide a database as an argument.\n";
+		std::cerr << "Error: could not open file." << std::endl;
+		return 1;
+	}
+	if (!isFile(argv[1]))
+	{
+		std::cerr << "Error: could not open file." << std::endl;
 		return 1;
 	}
 	BitcoinExchange b(argv[1]);

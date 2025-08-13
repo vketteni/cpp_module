@@ -14,7 +14,7 @@
 # include <climits> 
 # include "Debug.hpp"
 
-# define EXCHANGERATE_CSV  "/home/vketteni/42berlin/github/cpp_module/module_09/ex00/data.csv"
+# define EXCHANGERATE_CSV  "data.csv"
 
 class BitcoinExchange
 {
